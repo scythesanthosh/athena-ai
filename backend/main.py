@@ -130,8 +130,10 @@ def save_entry(user_id, entry_analysis):
 # ---- API Endpoint ----
 @app.post("/analyze")
 def analyze(request: ThoughtRequest):
-
+    
     analysis = analyze_thought(request.thought)
+    print("User:", request.user_id)
+    print("Analysis", analysis)
     save_entry(request.user_id, analysis)
 
     return {
