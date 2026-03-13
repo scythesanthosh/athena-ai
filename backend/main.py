@@ -22,6 +22,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 pdfmetrics.registerFont(TTFont('DejaVu', 'DejaVuSans.ttf'))
 app = FastAPI()
+
 @app.middleware("http")
 async def log_errors(request, call_next):
     try:
@@ -249,7 +250,25 @@ Return valid JSON in this format:
         return json.loads(content)
     except:
         raise HTTPException(status_code=500, detail="Invalid JSON from model")
-    
+@app.get("/mongo-test")
+def test_mongo():
+    try:
+        print("Testing MongoDB connection...")
+
+        # this forces MongoDB to respond
+        client.admin.command("ping")
+
+        collections = db.list_collection_names()
+
+        return {
+            "status": "MongoDB connected",
+            "collections": collections
+        }
+
+    except Exception as e:
+        print("MongoDB error:", e)
+        traceback.print_exc()
+        return {"error": str(e)}   
 @app.get("/weekly-report/{user_id}")
 def weekly_report(user_id: str):
     
