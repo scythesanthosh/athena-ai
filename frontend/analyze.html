@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+    <link rel="icon" type="image/png" href="logo.png">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Athena | The Architect's Guide</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Sign-in client -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<!-- Google Fonts: Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#77ea3e',
+              ivory: '#FCFBF4',
+              sage: '#F0F4EF',
+              dark: '#1A1D1A',
+              border: '#E2E8E0'
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Serif', 'serif'],
+            serif: ['Noto Serif', 'serif'],
+          },
+          borderRadius: {
+            'eight': '4px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    html {
+  font-size: clamp(14px, 1vw, 16px);
+}
+    .luxury-shadow {
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+    }
+    .text-old-money {
+      color: #1A1D1A;
+      letter-spacing: -0.01em;
+    }
+  </style>
+</head>
+<body class="bg-brand-ivory text-brand-dark font-serif selection:bg-brand selection:text-black">
+<!-- BEGIN: Navigation -->
+<!-- login view (hidden by default) -->
+<div id="login-view" class="fixed inset-0 flex flex-col items-center justify-center bg-white">
+    <h1 class="text-3xl mb-4">Athena - a Cognitive Engine</h1>
+    <div id="g_id_onload"
+         data-client_id="343194152499-ghf3srtqfil0ft9cv04tbon2qb8jra01.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+</div>
+
+<header class="fixed top-0 w-full z-50 border-b border-brand-border bg-brand-ivory/90 backdrop-blur-sm" data-purpose="main-header">
+<nav class="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 w-full md:w-auto">
+    <a class="text-xl font-medium tracking-widest uppercase flex items-center gap-3" href="test.html">
+      <img src="logo.png" alt="Athena Logo" class="w-9 h-9 object-contain">
+      Athena
+    </a>
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-10 text-xs uppercase tracking-widest font-medium text-gray-500">
+      <a class="hover:text-brand-dark transition-colors" href="analyze.html">How to Analyse</a>
+    </div>
+  </div>
+  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+    <button id="weekly-btn" class="w-full sm:w-auto border border-brand-dark px-6 py-3 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-brand-dark hover:text-white transition-all">Get Weekly Report</button>
+    <button id="logout-btn" class="w-full sm:w-auto border border-brand-dark px-6 py-3 rounded-full text-xs uppercase tracking-widest font-bold hover:bg-brand-dark hover:text-white transition-all">Logout</button>
+  </div>
+</nav>
+</header>
+<!-- END: Navigation -->
+<main id="chat-view" style="display:none;" class="pt-24 md:pt-28 px-4 md:px-6">
+  <div class="max-w-6xl mx-auto">
+<section class="mb-12">
+<div class="flex items-center gap-4 mb-6 text-sm uppercase tracking-widest text-primary/60 dark:text-pale-green/60 font-medium">
+<span>Analysis Guide</span>
+
+</div>
+<div class="rounded-xl overflow-hidden mb-8 shadow-sm">
+<div class="bg-cover bg-center flex flex-col justify-end min-h-[400px] relative" data-alt="Microscopic view of elegant neural network structures" style='background-image: linear-gradient(to top, rgba(44, 62, 45, 0.9) 0%, rgba(44, 62, 45, 0.2) 60%, rgba(253, 252, 248, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDRASP5PHGxDnaEqdM9kiL9qNDHcIQFbPhTJ9T9BsWngwlKI2t6yFHjCLSncYSTHDlzPQM4853vDhcOe9Fx9F5aBpeTBEhJSiSfhZRXtl_mO2gRglrpZrzwBCgR7GZ3-sluhKhWy1L0jfrjBruXcgUJll6hByxWwVdGUGfGT33XfKbeiEuvbvLf979m5QigFOhNm_JV1d91kce7aQVR0P3US76aeQlN0oqAAT3PHGkxTS1UdeEWdIW3fXZr6i0E2chQRgrhxHpTpN0");'>
+<div class="p-8">
+<h1 class="text-white serif-text text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">How to analyse your Cognitive Report?</h1>
+<p class="text-pale-green/90 text-lg md:text-xl font-serif italic max-w-2xl">
+                                A scholarly analysis of your mental landscape, designed for the refined mind seeking clarity and cognitive mastery.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<article class="space-y-12">
+<section>
+<div class="flex items-center gap-3 mb-4">
+<span class="text-primary/20 serif-text text-5xl font-bold">01</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-3xl font-bold">Overall Trend</h2>
+</div>
+<div class="p-6 bg-pale-green dark:bg-primary/10 rounded-xl border border-primary/5">
+<p class="text-slate-800 dark:text-slate-200 leading-relaxed text-lg italic serif-text">This section describes the general pattern across all entries that were analyzed. It tells you whether your thoughts: Are becoming more positive or negative, show emotional stability or volatility, or contain repeated thinking styles.</p>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-6">
+<span class="text-primary/20 serif-text text-5xl font-bold">02</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-3xl font-bold">Dominant Cognitive Patterns</h2>
+</div>
+<div class="space-y-4"><p class="text-slate-700 dark:text-slate-300 mb-4">This section lists the thinking styles that appear most frequently in your entries. Common examples include:</p><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="p-4 border border-primary/10 rounded-lg bg-ivory shadow-sm"><h3 class="font-bold text-primary mb-1">Catastrophizing</h3><p class="text-sm text-slate-600">assuming the worst possible outcome.</p></div><div class="p-4 border border-primary/10 rounded-lg bg-ivory shadow-sm"><h3 class="font-bold text-primary mb-1">Overgeneralization</h3><p class="text-sm text-slate-600">drawing broad conclusions from a single event.</p></div><div class="p-4 border border-primary/10 rounded-lg bg-ivory shadow-sm"><h3 class="font-bold text-primary mb-1">Emotional reasoning</h3><p class="text-sm text-slate-600">believing something is true because it feels true.</p></div><div class="p-4 border border-primary/10 rounded-lg bg-ivory shadow-sm"><h3 class="font-bold text-primary mb-1">Grandiose self-concept</h3><p class="text-sm text-slate-600">viewing oneself in exaggerated or extreme roles.</p></div><div class="p-4 border border-primary/10 rounded-lg bg-ivory shadow-sm"><h3 class="font-bold text-primary mb-1">Identity fusion</h3><p class="text-sm text-slate-600">strongly identifying with a particular idea, emotion, or role.</p></div></div><p class="text-xs italic text-primary/60 mt-4">These patterns are not judgments, but signals about how thoughts may be structured.</p></div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-6">
+<span class="text-primary/20 serif-text text-5xl font-bold">03</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-3xl font-bold">Distortion Analysis</h2>
+</div>
+<p class="text-slate-700 dark:text-slate-300 mb-6">This section measures how often cognitive distortions appear. Cognitive distortions are biased thinking patterns that can make situations feel worse or more extreme than they are. Higher frequency suggests the mind may be interpreting events through strong emotional filters.</p></div></div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-y border-primary/10">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="text-primary/20 serif-text text-5xl font-bold">04</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-2xl font-bold">Emotional Trend</h2>
+</div>
+<p class="text-slate-700 dark:text-slate-300">This part examines the emotional tone of your entries. It tracks: Intensity of emotions, stability vs volatility, and shifts between positive and negative states.</p>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="text-primary/20 serif-text text-5xl font-bold">05</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-2xl font-bold">Key Observations</h2>
+</div>
+<p class="text-slate-700 dark:text-slate-300 mb-4">This section lists specific examples from your entries that influenced the analysis to ensure transparency.</p><ul class="space-y-2 text-slate-700 dark:text-slate-300 list-disc pl-5"><li>Emotional expressions</li><li>Descriptions of experiences</li><li>Strong statements or imagery</li></ul>
+</div>
+</section>
+<section class="bg-primary text-ivory p-8 rounded-2xl shadow-xl">
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="text-pale-green/30 serif-text text-5xl font-bold">06</span>
+<h2 class="serif-text text-3xl font-bold">Positive Improvements</h2>
+</div>
+<p class="text-pale-green/80 italic mb-4">This section highlights constructive or positive signals in your entries. Even if negative patterns appear, this section shows areas of resilience and progress.</p>
+<div> </div>
+<div class="w-px h-24 bg-white/20 hidden md:block"></div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="text-pale-green/30 serif-text text-5xl font-bold">07</span>
+<h2 class="serif-text text-3xl font-bold">Strategies</h2>
+</div>
+<p class="text-pale-green/80 text-sm"> Some Recommended Strategies: Thought-record worksheets, grounding techniques, and gratitude journaling. These are general well-being practices, not medical prescriptions.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-6">
+<span class="text-primary/20 serif-text text-5xl font-bold">08</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-3xl font-bold">Attention Required</h2>
+</div>
+<div class="bg-accent/5 border-l-4 border-accent p-6 rounded-r-xl">
+<p class="text-slate-800 dark:text-slate-200 font-medium">Critical Observation: High-risk indicators detected.</p>
+<p class="text-slate-600 dark:text-slate-400 mt-2">Expressions of self-harm, extreme hopelessness, or persistent negative thinking. This section encourages extra care and possible professional support if necessary.</p>
+</div>
+</section>
+<section class="flex flex-col md:flex-row gap-8 py-12 items-start justify-center text-center md:text-left"><div class="relative">
+<div class="relative">
+  <div class="w-12 h-12 rounded-full border-2 border-primary/20 flex items-center justify-center">
+    <span class="text-black font-bold text-lg">09</span>
+  </div>
+</div>
+<div>
+<h2 class="text-primary/60 uppercase tracking-widest text-sm font-bold mb-1">Cognitive Archetype</h2>
+<h3 class="serif-text text-4xl font-bold text-primary dark:text-pale-green mb-4">Types</h3>
+<div class="max-w-md text-slate-600 dark:text-slate-400 leading-relaxed space-y-6">
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Strategist</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A structured, forward-thinking mindset focused on analyzing situations, anticipating outcomes, and planning solutions.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Self-Critic</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A thinking style marked by strong self-evaluation and internal judgment.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Catastrophizer</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      Patterns where situations are interpreted through worst-case outcomes or extreme consequences.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Stoic Processor</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A calm and controlled cognitive style that processes experiences rationally with limited emotional expression.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Idealist</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A value-driven mindset focused on meaning, principles, and aspirational thinking.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Reactor</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A style characterized by strong immediate emotional responses that shape interpretation of experiences.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Comparer</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A tendency to evaluate oneself relative to others or external standards.
+    </p>
+  </div>
+
+  <div>
+    <h4 class="font-bold text-primary dark:text-pale-green mb-1">The Optimizer</h4>
+    <p class="text-sm text-slate-600 dark:text-slate-400">
+      A mindset oriented toward continuous improvement and refining systems or behaviors.
+    </p>
+  </div>
+
+</div>
+</section>
+<section class="bg-pale-green dark:bg-primary/5 rounded-2xl p-10 text-center border border-primary/10 mb-16">
+<div class="mb-2">
+<span class="text-primary/20 serif-text text-5xl font-bold">10</span>
+<h2 class="text-primary dark:text-pale-green serif-text text-3xl font-bold inline ml-4">Confidence Score</h2>
+</div>
+<div class="mt-8 flex flex-col items-center">
+
+<p class="text-primary/60 uppercase tracking-widest text-xs font-bold">Confidence Score Range Interpretation</p><div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-left max-w-2xl mx-auto"><div class="text-xs"><span class="font-bold block">0.90+</span> very strong pattern detection</div><div class="text-xs"><span class="font-bold block">0.70–0.89</span> moderate confidence</div><div class="text-xs"><span class="font-bold block">below 0.70</span> patterns are less consistent</div></div>
+<div class="w-full max-w-sm mt-6 h-1 bg-primary/10 rounded-full">
+<div class="h-full bg-primary" style="width: 92%;"></div>
+</div><p class="text-xs italic text-primary/40 mt-4">Confidence depends on the amount and clarity of data available.</p>
+</div>
+        <div id="report-status" class="text-center" style="display:none;">
+            <div class="brain-loader"></div>
+            <p id="status-text" class="mt-2 font-mono text-sm text-gray-700">Initializing analysis...</p>
+        </div>
+</section>
+</article>
+  </div>
+</main>
+<!-- BEGIN: Footer -->
+<footer class="border-t border-brand-border py-16 md:py-20 bg-brand-sage/20" data-purpose="main-footer">
+<div class="max-w-6xl mx-auto px-4 md:px-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-12">
+
+<div class="flex flex-col items-center md:items-start gap-4">
+
+<a class="text-lg font-medium tracking-[0.3em] uppercase flex items-center gap-3 text-brand-dark" href="test.html">
+<img src="logo.png" alt="Athena Logo" class="w-6 h-6 object-contain">
+Athena
+</a>
+
+<p class="text-gray-500 text-sm">© 2024 Athena Cognitive Systems Inc.</p>
+
+</div>
+
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<script>
+        // global user state
+        let userData = null;
+
+        // view elements we toggle
+        const loginViewId = 'login-view';
+        const chatViewId = 'chat-view';
+
+        function showLoginView() {
+            document.getElementById(loginViewId).style.display = 'flex';
+            document.getElementById(chatViewId).style.display = 'none';
+            const hdr = document.querySelector('header');
+            if (hdr) hdr.style.display = 'none';
+        }
+        function showChatView() {
+            document.getElementById(loginViewId).style.display = 'none';
+            document.getElementById(chatViewId).style.display = 'block';
+            const hdr = document.querySelector('header');
+            if (hdr) hdr.style.display = 'block';
+        }
+
+        // initialize on load
+        window.addEventListener('load', () => {
+            const stored = localStorage.getItem('userData');
+            if (stored) {
+                userData = JSON.parse(stored);
+                showChatView();
+            } else {
+                showLoginView();
+            }
+        });
+
+        // google callback (same as other pages)
+        function handleCredentialResponse(response) {
+            const r = parseJwt(response.credential);
+            userData = { id: r.sub, name: r.given_name || 'User' };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            showChatView();
+        }
+
+        function parseJwt(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            return JSON.parse(window.atob(base64));
+        }
+
+        // Handle Weekly Report
+        document.getElementById('weekly-btn').addEventListener('click', async () => {
+            if (!userData || !userData.id) {
+                alert('Please log in first.');
+                return;
+            }
+
+            const statusBox = document.getElementById("report-status");
+            const statusText = document.getElementById("status-text");
+            const button = document.getElementById("weekly-btn");
+
+            const steps = [
+                "🧠 Analyzing cognitive patterns...",
+                "📊 Calculating emotional trends...",
+                "🔍 Detecting cognitive distortions...",
+                "📑 Generating psychological report..."
+            ];
+
+            let stepIndex = 0;
+
+            function updateStatus() {
+                statusText.innerText = steps[stepIndex % steps.length];
+                stepIndex++;
+            }
+
+            statusBox.style.display = "block";
+            button.disabled = true;
+
+            const interval = setInterval(updateStatus, 1500);
+            updateStatus();
+
+            try {
+                const res = await fetch(`http://127.0.0.1:8000/weekly-report/${userData.id}`);
+
+                if (!res.ok) {
+                    throw new Error(`User hasn't logged in any entries in the last Week`);
+                }
+
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+                window.open(url, "_blank");
+
+            } catch (e) {
+                alert("Failed to fetch weekly report: " + e.message);
+            } finally {
+                clearInterval(interval);
+                statusBox.style.display = "none";
+                button.disabled = false;
+            }
+        });
+
+        // Handle Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('userData');
+            userData = null;
+            showLoginView();
+        });
+    </script>
+</body></html>
