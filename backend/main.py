@@ -32,11 +32,11 @@ async def log_errors(request, call_next):
         print("ERROR:", e)
         traceback.print_exc()
         raise e
-API_KEY = "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"  # 🔐 paste key
+API_KEY = os.getenv("OPENROUTER_API_KEY")  # 🔐 paste key
 MODEL = "nvidia/nemotron-3-nano-30b-a3b:free"  # or fixed model
 
 # ---- MongoDB Connection ----
-MONGO_URI = "mongodb+srv://fastlane:fastlane@clusterdev.bngpd.mongodb.net/"
+MONGO_URI = os.getenv("MONGO_URI")
 MONGO_DB = "cognitive_engine"
 client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
 db = client[MONGO_DB]
