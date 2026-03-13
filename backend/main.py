@@ -1,3 +1,5 @@
+import traceback
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -20,7 +22,15 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 pdfmetrics.registerFont(TTFont('DejaVu', 'DejaVuSans.ttf'))
 app = FastAPI()
-
+@app.middleware("http")
+async def log_errors(request, call_next):
+    try:
+        response = await call_next(request)
+        return response
+    except Exception as e:
+        print("ERROR:", e)
+        traceback.print_exc()
+        raise e
 API_KEY = "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"  # 🔐 paste key
 MODEL = "nvidia/nemotron-3-nano-30b-a3b:free"  # or fixed model
 
