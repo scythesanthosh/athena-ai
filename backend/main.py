@@ -54,7 +54,7 @@ class ThoughtRequest(BaseModel):
 
 # ---- OpenRouter Call ----
 def analyze_thought(user_input):
-
+    print("Calling OpenRouter with user input:", user_input)
     prompt = f"""
 You are a Cognitive Pattern Analysis Engine.
 Do NOT provide therapy.
@@ -105,7 +105,7 @@ Return JSON in this format:
     )
 
     result = response.json()
-
+    print("Result from OpenRouter:", result)
     if "error" in result:
         raise HTTPException(status_code=500, detail=result["error"])
 
@@ -130,7 +130,7 @@ def save_entry(user_id, entry_analysis):
 # ---- API Endpoint ----
 @app.post("/analyze")
 def analyze(request: ThoughtRequest):
-    
+
     analysis = analyze_thought(request.thought)
     print("User:", request.user_id)
     print("Analysis", analysis)
