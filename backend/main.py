@@ -51,6 +51,7 @@ app.add_middleware(
 class ThoughtRequest(BaseModel):
     thought: str
     user_id: str
+    email: str = None
 
 # ---- OpenRouter Call ----
 def analyze_thought(user_input):
@@ -117,14 +118,15 @@ Return JSON in this format:
         raise HTTPException(status_code=500, detail="Invalid JSON from model")
 
 # ---- Save Entry ----
-def save_entry(user_id, entry_analysis):
+def save_entry(user_id, entry_analysis, email=None):
     collection = db["user_entries"]
     
     entry_analysis["user_id"] = user_id
+    entry_analysis["email"] = email
     entry_analysis["date"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     result = collection.insert_one(entry_analysis)
-    entry_analysis["_id"] = str(result.inserted_id)  # Convert ObjectId to string for JSON serialization
+    entry_analysis["_id"] = str(result.inserted_id)
     return str(result.inserted_id)
 
 # ---- API Endpoint ----
@@ -132,14 +134,13 @@ def save_entry(user_id, entry_analysis):
 def analyze(request: ThoughtRequest):
 
     analysis = analyze_thought(request.thought)
-    print("User:", request.user_id)
-    print("Analysis", analysis)
-    save_entry(request.user_id, analysis)
+    save_entry(request.user_id, analysis, request.email)
 
     return {
         "status": "success",
         "analysis": analysis
     }
+
 def generate_weekly_report(user_id):
     from datetime import timedelta
     
@@ -151,7 +152,7 @@ def generate_weekly_report(user_id):
     # Fetch entries from the last 7 days for the specific user
     entries = list(collection.find({
         "user_id": user_id,
-        "date": {"$gte": seven_days_ago}  # Greater than or equal to 7 days ago
+        "date": {"$gte": seven_days_ago}
     }))
     print(entries)
     if not entries:
@@ -222,7 +223,6 @@ Return valid JSON in this format:
 }}
 """
 
-
     payload = {
         "model": MODEL,
         "messages": [
@@ -252,6 +252,7 @@ Return valid JSON in this format:
         return json.loads(content)
     except:
         raise HTTPException(status_code=500, detail="Invalid JSON from model")
+
 @app.get("/mongo-test")
 def test_mongo():
     try:
@@ -271,6 +272,7 @@ def test_mongo():
         print("MongoDB error:", e)
         traceback.print_exc()
         return {"error": str(e)}   
+
 @app.get("/weekly-report/{user_id}")
 def weekly_report(user_id: str):
     
@@ -291,9 +293,6 @@ def weekly_report(user_id: str):
     story.append(Spacer(1, 20))
     story.append(Paragraph("<b>Weekly Cognitive & Emotional Analysis Report</b>", styles['Title']))
     story.append(Spacer(1, 20))
-
-    #story.append(Paragraph(f"User ID: {escape(str(user_id))}", styles['Normal']))
-    #story.append(Spacer(1, 20))
 
     # Overall Trend
     story.append(Paragraph("<b>Overall Trend</b>", styles['Heading2']))
