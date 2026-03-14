@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 
 <html class="light" lang="en"><head>
+    <link rel="manifest" href="/manifest.json">
+
+<!-- Theme color (Android browser UI color) -->
+<meta name="theme-color" content="#0F172A">
+
+<!-- Apple PWA support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Athena">
+
+<!-- Apple icon -->
+<link rel="apple-touch-icon" href="/icon-192.png">
+
+<!-- Standard favicon -->
+<link rel="icon" type="image/png" href="/icon-192.png">
     <link rel="icon" type="image/png" href="logo.png">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -281,6 +296,15 @@ Athena
             }
         });
 
+        // Function to generate report filename
+        function generateReportFilename() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = String(now.getFullYear()).slice(-2);
+            return `Report${day}${month}${year}.pdf`;
+        }
+
         // Handle Weekly Report
         document.getElementById('weekly-btn').addEventListener('click', async () => {
             if (!userData || !userData.id) {
@@ -321,7 +345,11 @@ Athena
 
                 const blob = await res.blob();
                 const url = window.URL.createObjectURL(blob);
-                window.open(url, "_blank");
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = generateReportFilename();
+                a.click();
+                window.URL.revokeObjectURL(url);
 
             } catch (e) {
                 alert("Failed to fetch weekly report: " + e.message);
